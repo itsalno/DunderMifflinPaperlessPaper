@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HNi5hiGV/5tUukjivT/fjZYoSeBFeE8WdhrF1TNa0W458iRIUqQISag8shqQP+6bdk5vzlmspYlKOvg9FlZ9hA==",
+  "dgSpecHash": "e+7k/Fuq5jbZ0zhKozDWRR6NtRrELcDBl/lZW/0CEObzGwvHqtv6VlMLnRjNyYqteTHMIV5/dwUCzXMztZQarA==",
   "success": true,
   "projectFilePath": "/Users/alekss/Desktop/CompulsoryAssignment/Api/Api.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/Users/alekss/.nuget/packages/microsoft.entityframeworkcore/9.0.0-rc.1.24451.1/microsoft.entityframeworkcore.9.0.0-rc.1.24451.1.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.0-rc.1.24451.1/microsoft.entityframeworkcore.abstractions.9.0.0-rc.1.24451.1.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.0-rc.1.24451.1/microsoft.entityframeworkcore.analyzers.9.0.0-rc.1.24451.1.nupkg.sha512",
+    "/Users/alekss/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.4/microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.extensions.caching.abstractions/9.0.0-rc.1.24431.7/microsoft.extensions.caching.abstractions.9.0.0-rc.1.24431.7.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.extensions.caching.memory/9.0.0-rc.1.24431.7/microsoft.extensions.caching.memory.9.0.0-rc.1.24431.7.nupkg.sha512",
@@ -39,6 +40,8 @@
     "/Users/alekss/.nuget/packages/microsoft.extensions.options.configurationextensions/8.0.0/microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.extensions.primitives/9.0.0-rc.1.24431.7/microsoft.extensions.primitives.9.0.0-rc.1.24431.7.nupkg.sha512",
     "/Users/alekss/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/Users/alekss/.nuget/packages/npgsql/8.0.3/npgsql.8.0.3.nupkg.sha512",
+    "/Users/alekss/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.4/npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
     "/Users/alekss/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/Users/alekss/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "/Users/alekss/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
