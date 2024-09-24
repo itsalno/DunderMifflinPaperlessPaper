@@ -1,13 +1,8 @@
 import React, {useEffect} from "react";
 import {useAtom} from "jotai";
-import {PatientsAtom} from "../atoms/PatientsAtom.tsx";
-import {useInitializeData} from "../useInitializeData.ts";
 import {http} from '../http.ts';
 export default function Home() {
     
-    function f() {
-        http.api.
-    }
 
     //const [, setProducts] = useAtom(PatientsAtom);
 
@@ -16,7 +11,7 @@ export default function Home() {
    // },[])
 
     //useInitializeData();
-
+    
     return (
         <div className="flex items-center justify-center h-screen mt-20">
         <div className="flex items-top justify-center h-screen">
