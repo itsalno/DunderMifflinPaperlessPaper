@@ -1,7 +1,7 @@
-//import {Api} from './Api.ts';
+import {Api} from './myApi.ts';
 
-export const baseUrl = 'http://localhost:5000';
+export const baseUrl = 'http://localhost:5169';
 
 export const http = new Api({
-    baseURL: baseUrl
+    baseUrl: baseUrl
 });
