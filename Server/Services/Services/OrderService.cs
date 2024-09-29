@@ -21,5 +21,10 @@ public class OrderService
     {
         return orderRepository.GetOrderByCustomerId(id);
     }
+
+    public Order CreateOrder(Order order)
+    {
+        return orderRepository.CreateOrder(order);
+    }
     
 }

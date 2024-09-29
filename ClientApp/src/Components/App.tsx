@@ -5,9 +5,11 @@ import {DevTools} from "jotai-devtools";
 import Navigation from "./Navigation.tsx";
 import {useAtom} from "jotai";
 import {ThemeAtom} from "../Atoms/ThemeAtom.tsx";
-import Home from "./Home.tsx";
-import PaperList from "./PaperList.tsx";
-import CartList from "./CartList.tsx";
+import Home from "./WebPages/Home.tsx";
+import PaperList from "./WebPages/PaperList.tsx";
+import CartList from "./WebPages/CartList.tsx";
+import OrderList from "./WebPages/OrderList.tsx";
+
 
 const App = () => {
 
@@ -26,6 +28,7 @@ const App = () => {
             <Route path="/" element={<Home/>}/>
             <Route path="/Papers" element={<PaperList />} />
             <Route path="/Cart" element={<CartList/>}/>
+            <Route path="/Orders" element={<OrderList/>}/>
         </Routes>
 
     </>)

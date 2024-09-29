@@ -6,6 +6,7 @@ public interface IOrderRepository
 {
     List<Order> GetAllOrders();
     Order GetOrderByCustomerId(int id);
-    
-    
+    Order CreateOrder(Order order);
+
+
 }

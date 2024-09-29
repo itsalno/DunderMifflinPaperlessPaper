@@ -16,5 +16,11 @@ public class OrderRepository:IOrderRepository
     {
         return context.Orders.Find(id);
     }
-    
+
+    public Order CreateOrder(Order order)
+    {
+        context.Orders.Add(order);
+        context.SaveChanges(); 
+        return order;
+    }
 }

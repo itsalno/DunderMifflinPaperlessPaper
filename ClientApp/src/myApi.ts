@@ -336,7 +336,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/Orders
      */
     ordersList: (params: RequestParams = {}) =>
-      this.request<Order, any>({
+      this.request<Order[], any>({
         path: `/api/Orders`,
         method: "GET",
         format: "json",

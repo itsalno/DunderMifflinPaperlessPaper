@@ -1,10 +1,11 @@
 import { useState } from "react";
-import useInitializedData from "../useInitializedData";
 import { useAtom } from "jotai";
-import { PapersAtom } from "../Atoms/PapersAtom";
-import { http } from "../http";
 import toast from "react-hot-toast";
-import { CreatePaperDto, PaperDto } from "../myApi";
+import { CreatePaperDto, PaperDto } from "../../myApi";
+import { PapersAtom } from "../../Atoms/PapersAtom";
+import { http } from "../../http";
+import useInitializedData from "../../useInitializedData";
+
 
 
 function PaperList() {

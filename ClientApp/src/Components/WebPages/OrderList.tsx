@@ -1,15 +1,13 @@
 import {useAtom} from "jotai/index";
-import { OrdersAtom } from "../Atoms/OrdersAtom";
+import { OrdersAtom } from "../../Atoms/OrdersAtom";
+import useInitializedData from "../../useInitializedData";
+
 
 function OrderList() {
 
     const [orders] = useAtom(OrdersAtom);
-    const [, setOrders] = useAtom(OrdersAtom);
     
-    
-    
-    
-    
+    useInitializedData();
     
     
     

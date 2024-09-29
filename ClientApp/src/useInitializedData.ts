@@ -18,7 +18,7 @@ export function useInitializeData() {
             console.log(e)
         })
         http.api.ordersList().then((response) => {
-            setOrders(response.data);
+            setOrders([response.data]);
         }).catch(e => {
             console.log(e)
         })

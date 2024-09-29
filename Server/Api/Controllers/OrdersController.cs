@@ -13,9 +13,16 @@ public class OrdersController:ControllerBase
     private readonly OrderService orderService;
     
     [HttpGet]
-    public ActionResult<Order> getAllOrders()
+    public ActionResult<List<Order>> getAllOrders()
     {
         var orders = orderService.GetAllOrders();
         return Ok(orders);
+    }
+
+    [HttpPost]
+    public ActionResult<Order> CreateOrder(Order order)
+    {
+        var createdorder = orderService.CreateOrder(order);
+        return Ok(createdorder);
     }
 }
