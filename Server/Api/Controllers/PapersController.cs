@@ -32,7 +32,7 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpGet("{id}", Name = "GetPaper")]
+    [HttpGet("{id}")]
     public ActionResult<PaperDto> GetPaper(int id)
     {
         var paper = paperService.GetPaper(id);
@@ -42,7 +42,7 @@ public class PapersController : ControllerBase
     
 
     
-    [HttpPost("AddPaper")]
+    [HttpPost]
     public ActionResult<PaperDto> CreatePaper(CreatePaperDto paperDto)
     {
         var createdPaper = paperService.CreatePaper(paperDto);
@@ -50,7 +50,7 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpPut("UpdatePaper/{id}")]
+    [HttpPut("{id}")]
     public IActionResult UpdatePaper(int id, PaperDto paperDto)
     {
         if (id != paperDto.Id) return BadRequest();
@@ -59,7 +59,7 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpDelete("DeletePaper/{id}")]
+    [HttpDelete("{id}")]
     public IActionResult DeletePaper(int id)
     {
         paperService.DeletePaper(id);

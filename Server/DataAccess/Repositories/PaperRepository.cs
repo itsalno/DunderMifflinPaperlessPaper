@@ -14,7 +14,11 @@ public class PaperRepository:IPaperRepository
 
     public List<Paper> GetAllPapers()
     {
-        return context.Papers.ToList();
+        var papers = context.Papers
+            .Include(p => p.Properties) 
+            .ToList();
+    
+        return papers;
     }
 
     public Paper CreatePaper(Paper paper)
@@ -38,11 +42,8 @@ public class PaperRepository:IPaperRepository
     public void DeletePaper(int id)
     {
         var paper = GetById(id);
-        if (paper != null)
-        {
-            context.Papers.Remove(paper);
-            context.SaveChanges(); 
-        }
+        context.Papers.Remove(paper);
+        context.SaveChanges(); 
     }
 }
     

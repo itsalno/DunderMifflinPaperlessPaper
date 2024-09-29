@@ -13,7 +13,6 @@ function PaperList() {
     const [papers] = useAtom(PapersAtom);
     const [, setPapers] = useAtom(PapersAtom);
     const [paperId, setPaperId] = useState<number | null>(null); // Track if we're editing
-    const [quantities, setQuantities] = useState<{ [id: number]: number }>({});
     const [name, setName] = useState("");
     const [stock, setStock] = useState(0);
     const [price, setPrice] = useState(0);
@@ -48,7 +47,7 @@ function PaperList() {
     };
 
     async function CreatePaper(paper: CreatePaperDto) {
-        http.api.papersAddPaperCreate(paper)
+        http.api.papersCreate(paper)
             .then(() => {
                 setPapers([...papers, paper]);
                 toast.success("Paper created");
@@ -60,7 +59,7 @@ function PaperList() {
     }
 
     async function DeletePaper(id: number) {
-        http.api.papersDeletePaperDelete(id)
+        http.api.papersDelete(id)
             .then(() => {
                 toast.success("Paper deleted");
                 setPapers(papers.filter((p) => p.id !== id));
@@ -72,7 +71,7 @@ function PaperList() {
     }
 
     async function UpdatePaper(id: number, updatedPaper: PaperDto) {
-        http.api.papersUpdatePaperUpdate(id, updatedPaper)
+        http.api.papersUpdate(id, updatedPaper)
             .then(() => {
                 setPapers(
                     papers.map((paper) =>

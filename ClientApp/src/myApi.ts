@@ -346,8 +346,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Orders
+     * @name OrdersCreate
+     * @request POST:/api/Orders
+     */
+    ordersCreate: (data: Order, params: RequestParams = {}) =>
+      this.request<Order, any>({
+        path: `/api/Orders`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Papers
-     * @name PapersList
+     * @name getAllPapers
      * @request GET:/api/Papers
      */
     papersList: (params: RequestParams = {}) =>
@@ -377,10 +394,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersAddPaperCreate
+     * @name PapersCreate
      * @request POST:/api/Papers/AddPaper
      */
-    papersAddPaperCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
+    papersCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
         path: `/api/Papers/AddPaper`,
         method: "POST",
@@ -394,10 +411,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersUpdatePaperUpdate
+     * @name PapersUpdate
      * @request PUT:/api/Papers/UpdatePaper/{id}
      */
-    papersUpdatePaperUpdate: (id: number, data: PaperDto, params: RequestParams = {}) =>
+    papersUpdate: (id: number, data: PaperDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Papers/UpdatePaper/${id}`,
         method: "PUT",
@@ -410,10 +427,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersDeletePaperDelete
+     * @name PapersDelete
      * @request DELETE:/api/Papers/DeletePaper/{id}
      */
-    papersDeletePaperDelete: (id: number, params: RequestParams = {}) =>
+    papersDelete: (id: number, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Papers/DeletePaper/${id}`,
         method: "DELETE",
