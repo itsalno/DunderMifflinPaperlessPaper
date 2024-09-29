@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useState } from "react";
 import useInitializedData from "../useInitializedData";
 import { useAtom } from "jotai";
 import { PapersAtom } from "../Atoms/PapersAtom";
@@ -7,20 +7,20 @@ import toast from "react-hot-toast";
 import { CreatePaperDto, PaperDto } from "../myApi";
 
 
-function PaperList(){
-
+function PaperList() {
+    
     const [papers] = useAtom(PapersAtom);
     const [, setPapers] = useAtom(PapersAtom);
     const [paperId, setPaperId] = useState<number | null>(null); // Track if we're editing
+    const [quantities, setQuantities] = useState<{ [id: number]: number }>({});
     const [name, setName] = useState("");
     const [stock, setStock] = useState(0);
     const [price, setPrice] = useState(0);
     const [discontinued, setDiscontinued] = useState(false);
 
-
     useInitializedData();
-
-
+    
+    
 
     const resetForm = () => {
         setPaperId(null);
@@ -46,31 +46,31 @@ function PaperList(){
         }
     };
 
-    async function CreatePaper(Paper: CreatePaperDto) {
-        http.api.papersAddPaperCreate(Paper).then(() => {
-            setPapers([...papers, Paper]);
-            toast.success('Paper created');
-        }).catch(e => {
-            console.log(e)
-            toast.error('Issue creating paper');
-        })
-
+    async function CreatePaper(paper: CreatePaperDto) {
+        http.api.papersAddPaperCreate(paper)
+            .then(() => {
+                setPapers([...papers, paper]);
+                toast.success("Paper created");
+            })
+            .catch((e) => {
+                console.log(e);
+                toast.error("Issue creating paper");
+            });
     }
 
-    
-    async function DeletePaper(id) {
-        http.api.papersDeletePaperDelete(id).then(() => {
-            toast.success('Paper deleted');
-            setPapers(papers.filter(p => p.id !== id));
-        }).catch(e => {
-            console.log(e)
-            toast.error('Issue deleting paper');
-        })
-        
+    async function DeletePaper(id: number) {
+        http.api.papersDeletePaperDelete(id)
+            .then(() => {
+                toast.success("Paper deleted");
+                setPapers(papers.filter((p) => p.id !== id));
+            })
+            .catch((e) => {
+                console.log(e);
+                toast.error("Issue deleting paper");
+            });
     }
 
-
-    async function UpdatePaper(id, updatedPaper: PaperDto) {
+    async function UpdatePaper(id: number, updatedPaper: PaperDto) {
         http.api.papersUpdatePaperUpdate(id, updatedPaper)
             .then(() => {
                 setPapers(
@@ -78,29 +78,28 @@ function PaperList(){
                         paper.id === id ? { ...paper, ...updatedPaper } : paper
                     )
                 );
-                toast.success('Paper updated');
+                toast.success("Paper updated");
             })
             .catch((e) => {
                 console.log(e);
-                toast.error('Issue updating paper');
+                toast.error("Issue updating paper");
             });
     }
 
     const handleEditClick = (paper: PaperDto) => {
-        setPaperId(paper.id);
-        setName(paper.name);
-        setStock(paper.stock);
-        setPrice(paper.price);
-        setDiscontinued(paper.discontinued);
+        if (paper.id) { 
+            setPaperId(paper.id);
+            setName(paper.name);
+            setStock(paper.stock);
+            setPrice(paper.price);
+            setDiscontinued(paper.discontinued);
+        }
     };
-
-
-
 
     return (
         <div className="flex items-left justify-top h-screen p-10">
             <h1 className="text-3xl mb-5">PAPER LIST</h1>
-            
+
             <form onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mt-5">
                     {paperId === null ? "CREATE NEW PAPER" : "UPDATE PAPER"}
@@ -163,16 +162,23 @@ function PaperList(){
                     </button>
                 )}
             </form>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center w-full mt-5">
                 {papers.map((paper) => (
-                    <div key={paper.id} className="bg-white rounded-lg p-4 shadow-lg">
+                    <div key={paper.id ?? Math.random()} className="bg-white rounded-lg p-4 shadow-lg">
                         <h2 className="text-2xl font-bold">{paper.name}</h2>
                         <p className="mt-2">Stock: {paper.stock}</p>
                         <p className="mt-2">Price: {paper.price}</p>
                         <p className="mt-2">
-                            Discontinued: {paper.discontinued ? "yes" : "no"}
+                            Discontinued: {paper.discontinued ? "Yes" : "No"}
                         </p>
+                        
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
+                        >
+                            Add to Cart
+                        </button>
+
                         <button
                             onClick={() => handleEditClick(paper)}
                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mt-2"
@@ -180,7 +186,7 @@ function PaperList(){
                             Edit
                         </button>
                         <button
-                            onClick={() => DeletePaper(paper.id)}
+                            onClick={() => DeletePaper(paper.id!)}
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2"
                         >
                             Delete
@@ -192,5 +198,4 @@ function PaperList(){
     );
 }
 
-
-export default PaperList
+export default PaperList;

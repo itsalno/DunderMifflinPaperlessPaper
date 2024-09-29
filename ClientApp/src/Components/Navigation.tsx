@@ -7,6 +7,7 @@ export default function Navigation() {
             <div className="flex-1">
                 <Link to="/" className="btn btn-ghost small-case text-xl m-2">Home</Link>
                 <Link to="/Papers" className="btn btn-ghost small-case text-xl m-2">Papers</Link>
+                <Link to="/Cart" className="btn btn-ghost small-case text-xl m-2">Cart</Link>
             </div>
             <div className="flex-none">
                 <ThemeSwitcher/>

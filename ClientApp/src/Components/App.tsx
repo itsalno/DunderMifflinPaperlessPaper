@@ -7,6 +7,7 @@ import {useAtom} from "jotai";
 import {ThemeAtom} from "../Atoms/ThemeAtom.tsx";
 import Home from "./Home.tsx";
 import PaperList from "./PaperList.tsx";
+import CartList from "./CartList.tsx";
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/Papers" element={<PaperList />} />
+            <Route path="/Cart" element={<CartList/>}/>
         </Routes>
 
     </>)

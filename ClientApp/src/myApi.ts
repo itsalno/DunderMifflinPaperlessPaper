@@ -18,6 +18,82 @@ export interface CreatePaperDto {
   price?: number;
 }
 
+export interface Customer {
+  /** @format int32 */
+  id?: number;
+  name?: string | null;
+  address?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  orders?: Order[] | null;
+}
+
+export interface DateOnly {
+  /** @format int32 */
+  year?: number;
+  /** @format int32 */
+  month?: number;
+  /** @format int32 */
+  day?: number;
+  dayOfWeek?: DayOfWeek;
+  /** @format int32 */
+  dayOfYear?: number;
+  /** @format int32 */
+  dayNumber?: number;
+}
+
+/** @format int32 */
+export enum DayOfWeek {
+  Value0 = 0,
+  Value1 = 1,
+  Value2 = 2,
+  Value3 = 3,
+  Value4 = 4,
+  Value5 = 5,
+  Value6 = 6,
+}
+
+export interface Order {
+  /** @format int32 */
+  id?: number;
+  /** @format date-time */
+  orderDate?: string | null;
+  deliveryDate?: DateOnly;
+  status?: string | null;
+  /** @format double */
+  totalAmount?: number;
+  /** @format int32 */
+  customerId?: number | null;
+  customer?: Customer;
+  orderEntries?: OrderEntry[] | null;
+}
+
+export interface OrderEntry {
+  /** @format int32 */
+  id?: number;
+  /** @format int32 */
+  quantity?: number;
+  /** @format int32 */
+  productId?: number | null;
+  /** @format int32 */
+  orderId?: number | null;
+  order?: Order;
+  product?: Paper;
+}
+
+export interface Paper {
+  /** @format int32 */
+  id?: number;
+  name?: string | null;
+  discontinued?: boolean;
+  /** @format int32 */
+  stock?: number;
+  /** @format double */
+  price?: number;
+  orderEntries?: OrderEntry[] | null;
+  properties?: Property[] | null;
+}
+
 export interface PaperDto {
   /** @format int32 */
   id?: number;
@@ -27,6 +103,13 @@ export interface PaperDto {
   stock?: number;
   /** @format double */
   price?: number;
+}
+
+export interface Property {
+  /** @format int32 */
+  id?: number;
+  propertyName?: string | null;
+  papers?: Paper[] | null;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -248,6 +331,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Orders
+     * @name OrdersList
+     * @request GET:/api/Orders
+     */
+    ordersList: (params: RequestParams = {}) =>
+      this.request<Order, any>({
+        path: `/api/Orders`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Papers
      * @name PapersList
      * @request GET:/api/Papers
@@ -283,11 +381,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/Papers/AddPaper
      */
     papersAddPaperCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
-      this.request<void, any>({
+      this.request<PaperDto, any>({
         path: `/api/Papers/AddPaper`,
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
         ...params,
       }),
 

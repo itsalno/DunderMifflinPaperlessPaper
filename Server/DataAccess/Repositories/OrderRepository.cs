@@ -1,32 +1,20 @@
+using DataAccess.Interfaces;
+
 namespace DataAccess.Models;
 
-public class OrderRepository
+public class OrderRepository:IOrderRepository
 {
+    
     private readonly DMDbContext context;
-
-    public OrderRepository(DMDbContext context)
-    {
-        this.context = context;
-    }
     
-    
-    public Order? GetOpenOrderByCustomerId(int customerId)
+    public List<Order> GetAllOrders()
     {
-        return context.Orders
-            .FirstOrDefault(o => o.CustomerId == customerId && o.Status == "Cart");
+        return context.Orders.ToList();
     }
 
-    
-    public void AddOrder(Order order)
+    public Order GetOrderByCustomerId(int id)
     {
-        context.Orders.Add(order);
-        context.SaveChanges();
+        return context.Orders.Find(id);
     }
-
     
-    public void UpdateOrder(Order order)
-    {
-        context.Orders.Update(order);
-        context.SaveChanges();
-    }
 }
