@@ -12,13 +12,13 @@ export function useInitializeData() {
 
 
     useEffect(() => {
-        http.api.papersList().then((response) => {
+        http.api.papersGetAllPapers().then((response) => {
             setPapers(response.data);
         }).catch(e => {
             console.log(e)
         })
         http.api.ordersList().then((response) => {
-            setOrders([response.data]);
+            setOrders(response.data);
         }).catch(e => {
             console.log(e)
         })

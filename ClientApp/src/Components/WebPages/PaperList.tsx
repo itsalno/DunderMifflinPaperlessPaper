@@ -96,10 +96,57 @@ function PaperList() {
         }
     };
 
+    const fetchPapersByPrice = () => {
+        http.api.papersSortByPrice()
+            .then((response) => setPapers(response.data))
+            .catch((error) => console.error("Error fetching papers sorted by price:", error));
+    };
+
+    const fetchPapersByStock = () => {
+        http.api.papersSortByStock()
+            .then((response) => setPapers(response.data))
+            .catch((error) => console.error("Error fetching papers sorted by stock:", error));
+    };
+
+    const fetchPapersByDiscount = () => {
+        http.api.papersSortByDiscount()
+            .then((response) => setPapers(response.data))
+            .catch((error) => console.error("Error fetching papers sorted by discount:", error));
+    };
+
+
+
+
     return (
-        <div className="flex items-left justify-top h-screen p-10">
+        <div className="flex flex-col items-left justify-top h-screen p-10">
             <h1 className="text-3xl mb-5">PAPER LIST</h1>
 
+            {/* Dropdown to filter papers */}
+            <select
+                id="paperFilter"
+                onChange={(e) => {
+                    switch (e.target.value) {
+                        case "price":
+                            fetchPapersByPrice();
+                            break;
+                        case "stock":
+                            fetchPapersByStock();
+                            break;
+                        case "discount":
+                            fetchPapersByDiscount();
+                            break;
+                        default:
+                            fetchPapersByPrice(); 
+                    }
+                }}
+                className="mb-5 p-2 border border-gray-300 rounded-md"
+            >
+                <option value="price">Sort by Price</option>
+                <option value="stock">Sort by Stock</option>
+                <option value="discount">Sort by Discount</option>
+            </select>
+
+            {/* Form to create/update paper */}
             <form onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mt-5">
                     {paperId === null ? "CREATE NEW PAPER" : "UPDATE PAPER"}
@@ -163,16 +210,15 @@ function PaperList() {
                 )}
             </form>
 
+            {/* List of papers */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center w-full mt-5">
                 {papers.map((paper) => (
                     <div key={paper.id ?? Math.random()} className="bg-white rounded-lg p-4 shadow-lg">
                         <h2 className="text-2xl font-bold">{paper.name}</h2>
                         <p className="mt-2">Stock: {paper.stock}</p>
                         <p className="mt-2">Price: {paper.price}</p>
-                        <p className="mt-2">
-                            Discontinued: {paper.discontinued ? "Yes" : "No"}
-                        </p>
-                        
+                        <p className="mt-2">Discontinued: {paper.discontinued ? "Yes" : "No"}</p>
+
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
                         >
@@ -186,7 +232,7 @@ function PaperList() {
                             Edit
                         </button>
                         <button
-                            onClick={() => DeletePaper(paper.id!)}
+                            onClick={() => DeletePaper(paper.id)}
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2"
                         >
                             Delete

@@ -364,12 +364,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name getAllPapers
-     * @request GET:/api/Papers
+     * @name PapersGetAllPapers
+     * @request GET:/api/Papers/GetAllPapers
      */
-    papersList: (params: RequestParams = {}) =>
+    papersGetAllPapers: (params: RequestParams = {}) =>
       this.request<PaperDto[], any>({
-        path: `/api/Papers`,
+        path: `/api/Papers/GetAllPapers`,
         method: "GET",
         format: "json",
         ...params,
@@ -379,12 +379,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name GetPaper
-     * @request GET:/api/Papers/{id}
+     * @name PapersGetPaper
+     * @request GET:/api/Papers/GetPaper/{id}
      */
-    getPaper: (id: number, params: RequestParams = {}) =>
+    papersGetPaper: (id: number, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
-        path: `/api/Papers/${id}`,
+        path: `/api/Papers/GetPaper/${id}`,
         method: "GET",
         format: "json",
         ...params,
@@ -395,11 +395,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Papers
      * @name PapersCreate
-     * @request POST:/api/Papers/AddPaper
+     * @request POST:/api/Papers/Create
      */
     papersCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
-        path: `/api/Papers/AddPaper`,
+        path: `/api/Papers/Create`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -412,11 +412,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Papers
      * @name PapersUpdate
-     * @request PUT:/api/Papers/UpdatePaper/{id}
+     * @request PUT:/api/Papers/Update/{id}
      */
     papersUpdate: (id: number, data: PaperDto, params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/api/Papers/UpdatePaper/${id}`,
+        path: `/api/Papers/Update/${id}`,
         method: "PUT",
         body: data,
         type: ContentType.Json,
@@ -428,12 +428,57 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      *
      * @tags Papers
      * @name PapersDelete
-     * @request DELETE:/api/Papers/DeletePaper/{id}
+     * @request DELETE:/api/Papers/Delete/{id}
      */
     papersDelete: (id: number, params: RequestParams = {}) =>
       this.request<void, any>({
-        path: `/api/Papers/DeletePaper/${id}`,
+        path: `/api/Papers/Delete/${id}`,
         method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Papers
+     * @name PapersSortByPrice
+     * @request GET:/api/Papers/SortByPrice
+     */
+    papersSortByPrice: (params: RequestParams = {}) =>
+      this.request<PaperDto[], any>({
+        path: `/api/Papers/SortByPrice`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Papers
+     * @name PapersSortByStock
+     * @request GET:/api/Papers/SortByStock
+     */
+    papersSortByStock: (params: RequestParams = {}) =>
+      this.request<PaperDto[], any>({
+        path: `/api/Papers/SortByStock`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Papers
+     * @name PapersSortByDiscount
+     * @request GET:/api/Papers/SortByDiscount
+     */
+    papersSortByDiscount: (params: RequestParams = {}) =>
+      this.request<PaperDto[], any>({
+        path: `/api/Papers/SortByDiscount`,
+        method: "GET",
+        format: "json",
         ...params,
       }),
   };

@@ -45,5 +45,20 @@ public class PaperRepository:IPaperRepository
         context.Papers.Remove(paper);
         context.SaveChanges(); 
     }
+
+    public List<Paper> GetAllPapersSortedByPrice()
+    {
+        return context.Papers.OrderBy(p => p.Price).ToList();
+    }
+
+    public List<Paper> GetAllPapersSortedByStockAmount()
+    {
+        return context.Papers.OrderBy(p => p.Stock).ToList();
+    }
+
+    public List<Paper> GetAllPapersSortedByDiscount()
+    {
+        return context.Papers.OrderBy(p => p.Discontinued).ToList();
+    }
 }
     

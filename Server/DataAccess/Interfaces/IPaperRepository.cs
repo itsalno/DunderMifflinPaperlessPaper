@@ -9,5 +9,8 @@ public interface IPaperRepository
      Paper GetById(int id);
      void UpdatePaper(Paper paper);
      void DeletePaper(int id);
+     List<Paper> GetAllPapersSortedByPrice();
+     List<Paper> GetAllPapersSortedByStockAmount();
+     List<Paper> GetAllPapersSortedByDiscount();
 
 }

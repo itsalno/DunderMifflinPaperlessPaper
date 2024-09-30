@@ -57,5 +57,20 @@ public class PaperService
         paperRepository.DeletePaper(id);
     }
     
+    public List<Paper> GetAllPapersSortedByPrice()
+    {
+        return paperRepository.GetAllPapersSortedByPrice();
+    }
+
+    public List<Paper> GetAllPapersSortedByStockAmount()
+    {
+        return paperRepository.GetAllPapersSortedByStockAmount();
+    }
+
+    public List<Paper> GetAllPapersSortedByDiscount()
+    {
+        return paperRepository.GetAllPapersSortedByDiscount();
+    }
+    
     
 }

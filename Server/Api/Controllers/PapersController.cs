@@ -24,7 +24,7 @@ public class PapersController : ControllerBase
     
     
 
-    [HttpGet]
+    [HttpGet("GetAllPapers")]
     public ActionResult<IEnumerable<PaperDto>> GetAllPapers()
     {
         var papers = paperService.GetAllPapers();
@@ -32,7 +32,7 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpGet("{id}")]
+    [HttpGet("GetPaper/{id}")]
     public ActionResult<PaperDto> GetPaper(int id)
     {
         var paper = paperService.GetPaper(id);
@@ -42,7 +42,7 @@ public class PapersController : ControllerBase
     
 
     
-    [HttpPost]
+    [HttpPost("Create")]
     public ActionResult<PaperDto> CreatePaper(CreatePaperDto paperDto)
     {
         var createdPaper = paperService.CreatePaper(paperDto);
@@ -50,7 +50,7 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpPut("{id}")]
+    [HttpPut("Update/{id}")]
     public IActionResult UpdatePaper(int id, PaperDto paperDto)
     {
         if (id != paperDto.Id) return BadRequest();
@@ -59,11 +59,35 @@ public class PapersController : ControllerBase
     }
 
     
-    [HttpDelete("{id}")]
+    [HttpDelete("Delete/{id}")]
     public IActionResult DeletePaper(int id)
     {
         paperService.DeletePaper(id);
         return NoContent();
+    }
+    
+    [HttpGet]
+    [Route("SortByPrice")]
+    public ActionResult<IEnumerable<PaperDto>> GetPapersSortedByPrice()
+    {
+        var papers = paperService.GetAllPapersSortedByPrice();
+        return Ok(papers);
+    }
+    
+    [HttpGet]
+    [Route("SortByStock")]
+    public ActionResult<IEnumerable<PaperDto>> GetPapersSortedByStock()
+    {
+        var papers = paperService.GetAllPapersSortedByStockAmount();
+        return Ok(papers);
+    }
+    
+    [HttpGet]
+    [Route("SortByDiscount")]
+    public ActionResult<IEnumerable<PaperDto>> GetPapersSortedByDiscount()
+    {
+        var papers = paperService.GetAllPapersSortedByDiscount();
+        return Ok(papers);
     }
     
     
