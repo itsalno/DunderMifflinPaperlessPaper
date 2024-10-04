@@ -17,6 +17,7 @@ public class PaperRepository:IPaperRepository
         var papers = context.Papers
             .Include(p => p.Properties) 
             .ToList();
+        
     
         return papers;
     }
