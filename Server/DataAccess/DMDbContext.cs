@@ -128,11 +128,11 @@ public partial class DMDbContext : DbContext
                     "PaperProperty",
                     r => r.HasOne<Property>().WithMany()
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("paper_properties_property_id_fkey"),
                     l => l.HasOne<Paper>().WithMany()
                         .HasForeignKey("PaperId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .HasConstraintName("paper_properties_paper_id_fkey"),
                     j =>
                     {

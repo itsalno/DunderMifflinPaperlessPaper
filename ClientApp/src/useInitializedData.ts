@@ -12,7 +12,7 @@ export function useInitializeData() {
 
 
     useEffect(() => {
-        http.api.papersGetAllPapers().then((response) => {
+        http.api.papersGetAllPapersList().then((response) => {
             setPapers(response.data);
         }).catch(e => {
             console.log(e)

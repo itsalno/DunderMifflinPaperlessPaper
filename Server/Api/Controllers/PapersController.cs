@@ -90,6 +90,14 @@ public class PapersController : ControllerBase
         return Ok(papers);
     }
     
+    [HttpGet]
+    [Route("Search")]
+    public ActionResult<IEnumerable<PaperDto>> SearchPapers(string name)
+    {
+        var papers = paperService.SearchPapers(name);
+        return Ok(papers);
+    }
+    
     
     
 }

@@ -48,17 +48,35 @@ public class PaperRepository:IPaperRepository
 
     public List<Paper> GetAllPapersSortedByPrice()
     {
-        return context.Papers.OrderBy(p => p.Price).ToList();
+        return context.Papers
+            .Include(p => p.Properties) 
+            .OrderBy(p => p.Price)
+            .ToList();
     }
 
     public List<Paper> GetAllPapersSortedByStockAmount()
     {
-        return context.Papers.OrderBy(p => p.Stock).ToList();
+        return context.Papers
+            .Include(p => p.Properties) 
+            .OrderBy(p => p.Stock)
+            .ToList();
     }
 
     public List<Paper> GetAllPapersSortedByDiscount()
     {
-        return context.Papers.OrderBy(p => p.Discontinued).ToList();
+        return context.Papers
+            .Include(p => p.Properties) 
+            .OrderBy(p => p.Discontinued)
+            .ToList();
     }
+    
+    public IEnumerable<Paper> SearchPapersByName(string name)
+    {
+        return context.Papers
+            .Where(p => p.Name.Contains(name))
+            .Include(p => p.Properties) 
+            .ToList();
+    }
+    
 }
     

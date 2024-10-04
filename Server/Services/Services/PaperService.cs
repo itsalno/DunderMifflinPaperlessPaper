@@ -72,5 +72,11 @@ public class PaperService
         return paperRepository.GetAllPapersSortedByDiscount();
     }
     
+    public IEnumerable<PaperDto> SearchPapers(string name)
+    {
+        var papers = paperRepository.SearchPapersByName(name);
+        return papers.Select(PaperDto.FromEntity).ToList();
+    }
+    
     
 }

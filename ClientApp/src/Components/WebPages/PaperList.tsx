@@ -17,6 +17,7 @@ function PaperList() {
     const [stock, setStock] = useState(0);
     const [price, setPrice] = useState(0);
     const [discontinued, setDiscontinued] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useInitializedData();
     
@@ -28,6 +29,17 @@ function PaperList() {
         setStock(0);
         setPrice(0);
         setDiscontinued(false);
+    };
+    
+    const reloadPapers=()=>{
+        http.api.papersGetAllPapersList().then((response) => setPapers(response.data))
+            .catch((error) => console.error("Error fetching papers:", error))
+    }
+
+    const handleSearch = () => {
+        http.api.papersSearchList({ name: searchQuery }) // Pass as an object with 'name' property
+            .then((response) => setPapers(response.data))
+            .catch((error) => console.error("Error fetching searched papers:", error));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -47,7 +59,7 @@ function PaperList() {
     };
 
     async function CreatePaper(paper: CreatePaperDto) {
-        http.api.papersCreate(paper)
+        http.api.papersCreateCreate(paper)
             .then(() => {
                 setPapers([...papers, paper]);
                 toast.success("Paper created");
@@ -59,7 +71,7 @@ function PaperList() {
     }
 
     async function DeletePaper(id: number) {
-        http.api.papersDelete(id)
+        http.api.papersDeleteDelete(id)
             .then(() => {
                 toast.success("Paper deleted");
                 setPapers(papers.filter((p) => p.id !== id));
@@ -71,7 +83,7 @@ function PaperList() {
     }
 
     async function UpdatePaper(id: number, updatedPaper: PaperDto) {
-        http.api.papersUpdate(id, updatedPaper)
+        http.api.papersUpdateUpdate(id, updatedPaper)
             .then(() => {
                 setPapers(
                     papers.map((paper) =>
@@ -97,19 +109,19 @@ function PaperList() {
     };
 
     const fetchPapersByPrice = () => {
-        http.api.papersSortByPrice()
+        http.api.papersSortByPriceList()
             .then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching papers sorted by price:", error));
     };
 
     const fetchPapersByStock = () => {
-        http.api.papersSortByStock()
+        http.api.papersSortByStockList()
             .then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching papers sorted by stock:", error));
     };
 
     const fetchPapersByDiscount = () => {
-        http.api.papersSortByDiscount()
+        http.api.papersSortByDiscountList()
             .then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching papers sorted by discount:", error));
     };
@@ -120,8 +132,25 @@ function PaperList() {
     return (
         <div className="flex flex-col items-left justify-top h-screen p-10">
             <h1 className="text-3xl mb-5">PAPER LIST</h1>
+            <div className="flex items-center mb-5">
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search by name..."
+                    className="p-2 border border-gray-300 rounded-md"
+                />
+                <button
+                    onClick={handleSearch}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2"
+                >
+                    Search
+                </button>
+                <button onClick={reloadPapers}  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3">
+                    Reset
+                </button>
+            </div>
 
-            {/* Dropdown to filter papers */}
             <select
                 id="paperFilter"
                 onChange={(e) => {
@@ -136,7 +165,7 @@ function PaperList() {
                             fetchPapersByDiscount();
                             break;
                         default:
-                            fetchPapersByPrice(); 
+                            fetchPapersByPrice();
                     }
                 }}
                 className="mb-5 p-2 border border-gray-300 rounded-md"
@@ -146,7 +175,6 @@ function PaperList() {
                 <option value="discount">Sort by Discount</option>
             </select>
 
-            {/* Form to create/update paper */}
             <form onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mt-5">
                     {paperId === null ? "CREATE NEW PAPER" : "UPDATE PAPER"}
@@ -183,57 +211,64 @@ function PaperList() {
                             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         />
                     </label>
-                    <div className="col-span-1">
+                    <label className="block">
+                        <span className="text-gray-700">Discontinued</span>
                         <input
                             type="checkbox"
                             checked={discontinued}
                             onChange={(e) => setDiscontinued(e.target.checked)}
-                            className="mr-2"
+                            className="mt-3 block w-full"
                         />
-                        <span className="text-gray-700">Discontinued</span>
-                    </div>
+                    </label>
                 </div>
                 <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3"
                 >
                     {paperId === null ? "Create" : "Update"}
                 </button>
-                {paperId !== null && (
-                    <button
-                        type="button"
-                        onClick={resetForm}
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full mt-5 ml-4"
-                    >
-                        Cancel
-                    </button>
-                )}
+                <button
+                    type="button"
+                    onClick={resetForm}
+                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3"
+                >
+                    Reset
+                </button>
             </form>
 
-            {/* List of papers */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center w-full mt-5">
                 {papers.map((paper) => (
-                    <div key={paper.id ?? Math.random()} className="bg-white rounded-lg p-4 shadow-lg">
-                        <h2 className="text-2xl font-bold">{paper.name}</h2>
-                        <p className="mt-2">Stock: {paper.stock}</p>
-                        <p className="mt-2">Price: {paper.price}</p>
-                        <p className="mt-2">Discontinued: {paper.discontinued ? "Yes" : "No"}</p>
-
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5"
-                        >
-                            Add to Cart
-                        </button>
-
+                    <div
+                        key={paper.id}
+                        className="border border-gray-300 p-5 rounded-lg shadow-lg flex flex-col justify-between"
+                    >
+                        <h2 className="text-xl font-bold">{paper.name}</h2>
+                        <p>Stock: {paper.stock}</p>
+                        <p>Price: ${paper.price.toFixed(2)}</p>
+                        <p>Discontinued: {paper.discontinued ? "Yes" : "No"}</p>
+                        <div>
+                            <h3 className="font-bold">Properties:</h3>
+                            {paper.properties.length > 0 ? (
+                                <ul>
+                                    {paper.properties.map((property, idx) => (
+                                        <li key={idx} className="text-sm text-gray-600">
+                                            {property}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>No properties available.</p>
+                            )}
+                        </div>
                         <button
                             onClick={() => handleEditClick(paper)}
-                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mt-2"
+                            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mt-3"
                         >
                             Edit
                         </button>
                         <button
-                            onClick={() => DeletePaper(paper.id)}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-2"
+                            onClick={() => DeletePaper(paper.id!)}
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3"
                         >
                             Delete
                         </button>

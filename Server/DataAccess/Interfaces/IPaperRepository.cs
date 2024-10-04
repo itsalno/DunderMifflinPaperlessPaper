@@ -12,5 +12,6 @@ public interface IPaperRepository
      List<Paper> GetAllPapersSortedByPrice();
      List<Paper> GetAllPapersSortedByStockAmount();
      List<Paper> GetAllPapersSortedByDiscount();
+     IEnumerable<Paper> SearchPapersByName(string name);
 
 }
