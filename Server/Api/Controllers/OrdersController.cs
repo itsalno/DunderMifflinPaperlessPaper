@@ -1,6 +1,7 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services;
+using Services.TransferModels.Requests;
 
 namespace Api.Controllers;
 
@@ -13,6 +14,7 @@ public class OrdersController:ControllerBase
     private readonly OrderService orderService;
     
     [HttpGet]
+    [Route("")]
     public ActionResult<List<Order>> getAllOrders()
     {
         var orders = orderService.GetAllOrders();
@@ -20,9 +22,10 @@ public class OrdersController:ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Order> CreateOrder(Order order)
+    [Route("")]
+    public IActionResult CreateOrder([FromBody] CreateOrderDto createOrderDto)
     {
-        var createdorder = orderService.CreateOrder(order);
-        return Ok(createdorder);
+        orderService.CreateOrder(createOrderDto);
+        return Ok();
     }
 }
