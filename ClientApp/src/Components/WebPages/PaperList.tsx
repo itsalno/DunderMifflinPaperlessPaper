@@ -5,6 +5,7 @@ import { CreatePaperDto, PaperDto } from "../../myApi";
 import { PapersAtom } from "../../Atoms/PapersAtom";
 import { http } from "../../http";
 import useInitializedData from "../../useInitializedData";
+import { CartAtom } from "../../Atoms/CartAtom";
 
 
 
@@ -12,6 +13,10 @@ function PaperList() {
     
     const [papers] = useAtom(PapersAtom);
     const [, setPapers] = useAtom(PapersAtom);
+    const [, setCartItems] = useAtom(CartAtom);
+    const [quantity, setQuantity] = useState<number>(1);
+    
+    
     const [paperId, setPaperId] = useState<number | null>(null); // Track if we're editing
     const [name, setName] = useState("");
     const [stock, setStock] = useState(0);
@@ -30,6 +35,13 @@ function PaperList() {
         setPrice(0);
         setDiscontinued(false);
     };
+
+    const addToCart = (paper) => {
+        // Add paper and its quantity to the cart
+        setCartItems((prevCart) => [...prevCart, { ...paper, quantity }]);
+        toast.success(`${paper.name} added to cart!`);
+    };
+    
     
     const reloadPapers=()=>{
         http.api.papersGetAllPapersList().then((response) => setPapers(response.data))
@@ -271,6 +283,21 @@ function PaperList() {
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3"
                         >
                             Delete
+                        </button>
+                        <div>
+                            <label>Quantity:</label>
+                            <input
+                                type="number"
+                                value={quantity}
+                                onChange={(e) => setQuantity(Number(e.target.value))}
+                                min="1"
+                                className="border p-1 rounded"
+                            />
+                        </div>
+
+                        <button onClick={() => addToCart(paper)}
+                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mt-3">
+                            Add to Cart
                         </button>
                     </div>
                 ))}

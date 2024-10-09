@@ -5,18 +5,23 @@ using Microsoft.EntityFrameworkCore;
 using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<IPaperRepository, PaperRepository>();
+builder.Services.AddScoped<PaperService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<OrderService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IPaperRepository, PaperRepository>();
-builder.Services.AddScoped<PaperService>();
+
 
 
 var connectionString = builder.Configuration.GetConnectionString("DBConnectionString");
 builder.Services.AddDbContext<DMDbContext>(options =>
-    options.UseNpgsql(connectionString));
+{
+    options.EnableSensitiveDataLogging();
+    options.UseNpgsql(connectionString);
+});
 
 var app = builder.Build();
 

@@ -9,6 +9,26 @@
  * ---------------------------------------------------------------
  */
 
+export interface CreateOrderDto {
+  orderDate?: string | null;
+  deliveryDate?: string | null;
+  status?: string | null;
+  /** @format double */
+  totalAmount?: number;
+  /** @format int32 */
+  customerId?: number | null;
+  orderEntries?: CreateOrderEntryDto[] | null;
+}
+
+export interface CreateOrderEntryDto {
+  /** @format int32 */
+  productId?: number;
+  /** @format int32 */
+  quantity?: number;
+  /** @format int32 */
+  orderId?: number;
+}
+
 export interface CreatePaperDto {
   name?: string | null;
   discontinued?: boolean;
@@ -28,37 +48,11 @@ export interface Customer {
   orders?: Order[] | null;
 }
 
-export interface DateOnly {
-  /** @format int32 */
-  year?: number;
-  /** @format int32 */
-  month?: number;
-  /** @format int32 */
-  day?: number;
-  dayOfWeek?: DayOfWeek;
-  /** @format int32 */
-  dayOfYear?: number;
-  /** @format int32 */
-  dayNumber?: number;
-}
-
-/** @format int32 */
-export enum DayOfWeek {
-  Value0 = 0,
-  Value1 = 1,
-  Value2 = 2,
-  Value3 = 3,
-  Value4 = 4,
-  Value5 = 5,
-  Value6 = 6,
-}
-
 export interface Order {
   /** @format int32 */
   id?: number;
-  /** @format date-time */
   orderDate?: string | null;
-  deliveryDate?: DateOnly;
+  deliveryDate?: string | null;
   status?: string | null;
   /** @format double */
   totalAmount?: number;
@@ -351,13 +345,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @name OrdersCreate
      * @request POST:/api/Orders
      */
-    ordersCreate: (data: Order, params: RequestParams = {}) =>
-      this.request<Order, any>({
+    ordersCreate: (data: CreateOrderDto, params: RequestParams = {}) =>
+      this.request<void, any>({
         path: `/api/Orders`,
         method: "POST",
         body: data,
         type: ContentType.Json,
-        format: "json",
         ...params,
       }),
 

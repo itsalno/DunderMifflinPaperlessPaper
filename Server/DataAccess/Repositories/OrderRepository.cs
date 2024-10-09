@@ -2,10 +2,9 @@ using DataAccess.Interfaces;
 
 namespace DataAccess.Models;
 
-public class OrderRepository:IOrderRepository
+public class OrderRepository(DMDbContext context):IOrderRepository
 {
     
-    private readonly DMDbContext context;
     
     public List<Order> GetAllOrders()
     {
@@ -19,7 +18,15 @@ public class OrderRepository:IOrderRepository
 
     public Order CreateOrder(Order order)
     {
+        
         context.Orders.Add(order);
+        context.SaveChanges(); 
+        return order;
+    }
+    
+    public Order UpdateOrder(Order order)
+    {
+        context.Orders.Update(order);
         context.SaveChanges(); 
         return order;
     }

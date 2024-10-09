@@ -1,3 +1,4 @@
+using System.Text.Json;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services.Services;
@@ -8,11 +9,17 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrdersController:ControllerBase
+public class OrdersController : ControllerBase
 
 {
     private readonly OrderService orderService;
     
+    public OrdersController(OrderService orderService)
+    {
+        this.orderService = orderService; 
+    }
+
+
     [HttpGet]
     [Route("")]
     public ActionResult<List<Order>> getAllOrders()
@@ -25,7 +32,7 @@ public class OrdersController:ControllerBase
     [Route("")]
     public IActionResult CreateOrder([FromBody] CreateOrderDto createOrderDto)
     {
-        orderService.CreateOrder(createOrderDto);
-        return Ok();
+            orderService.CreateOrder(createOrderDto);
+            return Ok();
     }
 }
