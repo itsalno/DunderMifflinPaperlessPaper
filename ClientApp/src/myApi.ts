@@ -326,6 +326,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Customer
+     * @name CustomerList
+     * @request GET:/api/Customer
+     */
+    customerList: (params: RequestParams = {}) =>
+      this.request<Customer[], any>({
+        path: `/api/Customer`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Orders
      * @name OrdersList
      * @request GET:/api/Orders

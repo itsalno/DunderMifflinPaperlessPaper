@@ -5,22 +5,8 @@ using Services.TransferModels.Responses;
 
 namespace Services.Services;
 
-public class PaperService
+public class PaperService(IPaperRepository paperRepository)
 {
-    
-    
-    private readonly IPaperRepository paperRepository;
-    
-    
-
-    public PaperService(IPaperRepository paperRepository)
-    
-    {
-        this.paperRepository = paperRepository;
-    }
-
-    
-    
     
     
     public PaperDto GetPaper(int id)

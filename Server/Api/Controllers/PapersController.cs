@@ -10,17 +10,9 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PapersController : ControllerBase
+public class PapersController(PaperService paperService) : ControllerBase
 
 {
-    
-    private readonly PaperService paperService;
-    
-
-    public PapersController(PaperService paperService)
-    {
-        this.paperService = paperService;
-    }
     
     
 

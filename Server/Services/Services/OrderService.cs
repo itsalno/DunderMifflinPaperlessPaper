@@ -4,14 +4,10 @@ using Services.TransferModels.Requests;
 
 namespace Services.Services;
 
-public class OrderService
+public class OrderService(IOrderRepository orderRepository)
 {
-    private readonly IOrderRepository orderRepository;
     
-    public OrderService(IOrderRepository orderRepository)
-    {
-        this.orderRepository = orderRepository;
-    }
+    
     
     public List<Order> GetAllOrders()
     {

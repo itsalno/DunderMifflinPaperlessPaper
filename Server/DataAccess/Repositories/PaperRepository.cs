@@ -3,14 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Models;
 
-public class PaperRepository:IPaperRepository
+public class PaperRepository(DMDbContext context):IPaperRepository
 {
-    private readonly DMDbContext context;
 
-    public PaperRepository(DMDbContext context)
-    {
-        this.context = context;
-    }
+    
 
     public List<Paper> GetAllPapers()
     {

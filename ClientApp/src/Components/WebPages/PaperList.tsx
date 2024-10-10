@@ -142,56 +142,64 @@ function PaperList() {
 
 
     return (
-        <div className="flex flex-col items-left justify-top h-screen p-10">
-            <h1 className="text-3xl mb-5">PAPER LIST</h1>
-            <div className="flex items-center mb-5">
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search by name..."
-                    className="p-2 border border-gray-300 rounded-md"
-                />
+        <div className="flex flex-col items-center justify-top min-h-screen bg-gray-100 p-10">
+            <h1 className="text-4xl font-extrabold text-blue-600 mb-8">PRODUCTS</h1>
+            
+            <div className="flex flex-col items-center mb-8 w-full md:w-2/3 lg:w-1/2 space-y-4">
+                <div className="flex space-x-4 w-full">
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search by name..."
+                        className="p-3 w-full border border-gray-300 rounded-lg shadow focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        onClick={handleSearch}
+                        className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-700 hover:to-blue-900 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                    >
+                        Search
+                    </button>
+                </div>
                 <button
-                    onClick={handleSearch}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2"
+                    onClick={reloadPapers}
+                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full transition-all"
                 >
-                    Search
-                </button>
-                <button onClick={reloadPapers}  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3">
                     Reset
                 </button>
             </div>
-
-            <select
-                id="paperFilter"
-                onChange={(e) => {
-                    switch (e.target.value) {
-                        case "price":
-                            fetchPapersByPrice();
-                            break;
-                        case "stock":
-                            fetchPapersByStock();
-                            break;
-                        case "discount":
-                            fetchPapersByDiscount();
-                            break;
-                        default:
-                            fetchPapersByPrice();
-                    }
-                }}
-                className="mb-5 p-2 border border-gray-300 rounded-md"
-            >
-                <option value="price">Sort by Price</option>
-                <option value="stock">Sort by Stock</option>
-                <option value="discount">Sort by Discount</option>
-            </select>
-
-            <form onSubmit={handleSubmit}>
-                <h2 className="text-2xl font-bold mt-5">
-                    {paperId === null ? "CREATE NEW PAPER" : "UPDATE PAPER"}
+            
+            <div className="mb-8 w-full md:w-2/3 lg:w-1/2">
+                <select
+                    id="paperFilter"
+                    onChange={(e) => {
+                        switch (e.target.value) {
+                            case "price":
+                                fetchPapersByPrice();
+                                break;
+                            case "stock":
+                                fetchPapersByStock();
+                                break;
+                            case "discount":
+                                fetchPapersByDiscount();
+                                break;
+                            default:
+                                fetchPapersByPrice();
+                        }
+                    }}
+                    className="w-full p-3 border border-gray-300 rounded-lg shadow focus:ring-2 focus:ring-indigo-500"
+                >
+                    <option value="price">Sort by Price</option>
+                    <option value="stock">Sort by Stock</option>
+                    <option value="discount">Sort by Discount</option>
+                </select>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="w-full md:w-2/3 lg:w-1/2 bg-white p-6 rounded-lg shadow-lg space-y-4">
+                <h2 className="text-2xl font-bold text-blue-500">
+                    {paperId === null ? "Create New Paper" : "Update Paper"}
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center w-full mt-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <label className="block">
                         <span className="text-gray-700">Name</span>
                         <input
@@ -199,7 +207,7 @@ function PaperList() {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="mt-1 block w-full rounded-lg border-gray-300 shadow focus:ring-2 focus:ring-indigo-500"
                         />
                     </label>
                     <label className="block">
@@ -209,7 +217,7 @@ function PaperList() {
                             value={stock}
                             onChange={(e) => setStock(Number(e.target.value))}
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="mt-1 block w-full rounded-lg border-gray-300 shadow focus:ring-2 focus:ring-indigo-500"
                         />
                     </label>
                     <label className="block">
@@ -220,7 +228,7 @@ function PaperList() {
                             value={price}
                             onChange={(e) => setPrice(parseFloat(e.target.value))}
                             required
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            className="mt-1 block w-full rounded-lg border-gray-300 shadow focus:ring-2 focus:ring-indigo-500"
                         />
                     </label>
                     <label className="block">
@@ -229,74 +237,83 @@ function PaperList() {
                             type="checkbox"
                             checked={discontinued}
                             onChange={(e) => setDiscontinued(e.target.checked)}
-                            className="mt-3 block w-full"
+                            className="mt-3 block w-full rounded-lg border-gray-300 shadow focus:ring-2 focus:ring-indigo-500"
                         />
                     </label>
                 </div>
-                <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3"
-                >
-                    {paperId === null ? "Create" : "Update"}
-                </button>
-                <button
-                    type="button"
-                    onClick={resetForm}
-                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3"
-                >
-                    Reset
-                </button>
+                <div className="flex space-x-4 mt-4">
+                    <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                    >
+                        {paperId === null ? "Create" : "Update"}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={resetForm}
+                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                    >
+                        Reset
+                    </button>
+                </div>
             </form>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center w-full mt-5">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                 {papers.map((paper) => (
                     <div
                         key={paper.id}
-                        className="border border-gray-300 p-5 rounded-lg shadow-lg flex flex-col justify-between"
+                        className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300"
                     >
-                        <h2 className="text-xl font-bold">{paper.name}</h2>
-                        <p>Stock: {paper.stock}</p>
-                        <p>Price: ${paper.price.toFixed(2)}</p>
-                        <p>Discontinued: {paper.discontinued ? "Yes" : "No"}</p>
-                        <div>
-                            <h3 className="font-bold">Properties:</h3>
+                        <h2 className="text-xl font-bold text-gray-800">{paper.name}</h2>
+                        <p className="mt-2 text-gray-600">Stock: {paper.stock}</p>
+                        <p className="text-gray-600">Price: ${paper.price.toFixed(2)}</p>
+                        <p className="text-gray-600">Discontinued: {paper.discontinued ? "Yes" : "No"}</p>
+
+                        <div className="mt-4">
+                            <h3 className="font-bold text-gray-800">Properties:</h3>
                             {paper.properties.length > 0 ? (
-                                <ul>
+                                <ul className="list-disc ml-5 mt-2 text-gray-600">
                                     {paper.properties.map((property, idx) => (
-                                        <li key={idx} className="text-sm text-gray-600">
+                                        <li key={idx} className="text-sm">
                                             {property}
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p>No properties available.</p>
+                                <p className="text-gray-600">No properties available.</p>
                             )}
                         </div>
-                        <button
-                            onClick={() => handleEditClick(paper)}
-                            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mt-3"
-                        >
-                            Edit
-                        </button>
-                        <button
-                            onClick={() => DeletePaper(paper.id!)}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mt-3 ml-3"
-                        >
-                            Delete
-                        </button>
-                        <div>
-                            <label>Quantity:</label>
+
+                        <div className="flex space-x-3 mt-4">
+                            <button
+                                onClick={() => handleEditClick(paper)}
+                                className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg transition-all"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                onClick={() => DeletePaper(paper.id)}
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-all"
+                            >
+                                Delete
+                            </button>
+                        </div>
+
+                        <div className="mt-4">
+                            <label className="block text-gray-600">Quantity:</label>
                             <input
                                 type="number"
                                 value={quantity}
                                 onChange={(e) => setQuantity(Number(e.target.value))}
                                 min="1"
-                                className="border p-1 rounded"
+                                className="border border-gray-300 p-2 rounded-lg w-full mt-2"
                             />
                         </div>
 
-                        <button onClick={() => addToCart(paper)}
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mt-3">
+                        <button
+                            onClick={() => addToCart(paper)}
+                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg w-full mt-4 transition-all"
+                        >
                             Add to Cart
                         </button>
                     </div>

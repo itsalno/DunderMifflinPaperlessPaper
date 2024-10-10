@@ -9,15 +9,9 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class OrdersController : ControllerBase
+public class OrdersController(OrderService orderService) : ControllerBase
 
 {
-    private readonly OrderService orderService;
-    
-    public OrdersController(OrderService orderService)
-    {
-        this.orderService = orderService; 
-    }
 
 
     [HttpGet]

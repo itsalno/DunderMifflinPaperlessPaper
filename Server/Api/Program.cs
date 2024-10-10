@@ -5,10 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<IPaperRepository, PaperRepository>();
 builder.Services.AddScoped<PaperService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
