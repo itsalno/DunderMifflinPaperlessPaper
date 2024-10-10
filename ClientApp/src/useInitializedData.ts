@@ -24,7 +24,7 @@ export function useInitializeData() {
         }).catch(e => {
             console.log(e)
         })
-        http.api.customerList().then((response)=> {
+        http.api.customersList().then((response)=> {
             setCustomers(response.data);
             console.log(response)
         }).catch(e=>{

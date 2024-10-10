@@ -48,6 +48,15 @@ export interface Customer {
   orders?: Order[] | null;
 }
 
+export interface CustomerDto {
+  /** @format int32 */
+  id?: number;
+  name?: string | null;
+  address?: string | null;
+  phone?: string | null;
+  email?: string | null;
+}
+
 export interface Order {
   /** @format int32 */
   id?: number;
@@ -60,6 +69,18 @@ export interface Order {
   customerId?: number | null;
   customer?: Customer;
   orderEntries?: OrderEntry[] | null;
+}
+
+export interface OrderDto {
+  /** @format int32 */
+  id?: number;
+  orderDate?: string | null;
+  deliveryDate?: string | null;
+  status?: string | null;
+  /** @format double */
+  totalAmount?: number;
+  /** @format int32 */
+  customerId?: number | null;
 }
 
 export interface OrderEntry {
@@ -326,13 +347,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
-     * @tags Customer
-     * @name CustomerList
-     * @request GET:/api/Customer
+     * @tags Customers
+     * @name CustomersList
+     * @request GET:/api/Customers
      */
-    customerList: (params: RequestParams = {}) =>
-      this.request<Customer[], any>({
-        path: `/api/Customer`,
+    customersList: (params: RequestParams = {}) =>
+      this.request<CustomerDto[], any>({
+        path: `/api/Customers`,
         method: "GET",
         format: "json",
         ...params,
@@ -364,6 +385,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/api/Orders`,
         method: "POST",
+        body: data,
+        type: ContentType.Json,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Orders
+     * @name OrdersUpdateUpdate
+     * @request PUT:/api/Orders/Update/{id}
+     */
+    ordersUpdateUpdate: (id: number, data: OrderDto, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/api/Orders/Update/${id}`,
+        method: "PUT",
         body: data,
         type: ContentType.Json,
         ...params,

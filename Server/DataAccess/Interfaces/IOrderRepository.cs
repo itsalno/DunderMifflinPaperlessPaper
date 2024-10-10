@@ -7,7 +7,7 @@ public interface IOrderRepository
     List<Order> GetAllOrders();
     Order GetOrderByCustomerId(int id);
     Order CreateOrder(Order order);
-    Order UpdateOrder(Order order);
+    void UpdateOrder(Order order);
 
 
 }

@@ -1,17 +1,54 @@
 import { useAtom } from "jotai";
 import { OrdersAtom } from "../../Atoms/OrdersAtom";
 import useInitializedData from "../../useInitializedData";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { http } from "../../http";
 function OrderList() {
-    const [orders] = useAtom(OrdersAtom);
+    const [orders,setOrders] = useAtom(OrdersAtom);
+    const [editOrderId, setEditOrderId] = useState<number | null>(null); 
+    const [newStatus, setNewStatus] = useState<string>("");
 
     useInitializedData();
 
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+    const handleStatusUpdate = async (orderId: number) => {
+        if (!newStatus) {
+            toast.error("Please select a new status.");
+            return;
+        }
+
+        const orderToUpdate = orders.find((order) => order.id === orderId);
+        if (!orderToUpdate) {
+            toast.error("Order not found.");
+            return;
+        }
+        
+        const updatedOrder = {
+            ...orderToUpdate,
+            status: newStatus,
+            orderDate: orderToUpdate.orderDate,
+            deliveryDate: orderToUpdate.deliveryDate
+        };
+
+        try {
+            const updatedOrders = orders.map((order) =>
+                order.id === orderId ? { ...order, status: newStatus } : order
+            );
+            setOrders(updatedOrders);
+            
+            await http.api.ordersUpdateUpdate(orderId, updatedOrder);
+            toast.success("Order status updated successfully!");
+            setEditOrderId(null);
+        } catch (error) {
+            console.error("Error updating order status:", error);
+            toast.error("Failed to update order status. Please try again.");
+        }
+    };
     
     
     
@@ -34,15 +71,49 @@ function OrderList() {
                 >
                     <h2 className="text-2xl font-bold text-gray-800">Order Date: {order.orderDate}</h2>
                     <p className="mt-2 text-gray-600">Delivery Date: {order.deliveryDate}</p>
-                    <p className="mt-2 text-gray-600">Status:
-                        <span className={`ml-2 px-2 py-1 rounded-full text-white ${
-                            order.status === 'Delivered' ? 'bg-green-500' :
-                                order.status === 'Pending' ? 'bg-yellow-500' :
-                                    'bg-red-500'
-                        }`}>
-                            {order.status}
-                        </span>
-                    </p>
+                    
+                    {editOrderId === order.id ? (
+                        <div className="mt-2">
+                            <label className="block text-gray-700">Change Status:</label>
+                            <select
+                                value={newStatus}
+                                onChange={(e) => setNewStatus(e.target.value)}
+                                className="mt-1 p-2 border rounded-lg w-full"
+                            >
+                                <option value="">Select Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                            </select>
+                            <button
+                                onClick={() => handleStatusUpdate(order.id)}
+                                className="mt-3 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-all"
+                            >
+                                Save Status
+                            </button>
+                        </div>
+                    ) : (
+                        <p className="mt-2 text-gray-600">
+                            Status:
+                            <span className={`ml-2 px-2 py-1 rounded-full text-white ${
+                                order.status === 'Delivered' ? 'bg-green-500' :
+                                    order.status === 'Shipped' ? 'bg-blue-500' :
+                                        order.status === 'Pending' ? 'bg-yellow-500' :
+                                            'bg-red-500'
+                            }`}>
+                                {order.status}
+                            </span>
+                        </p>
+                    )}
+
+                    {/* Edit status button */}
+                    <button
+                        onClick={() => setEditOrderId(order.id)}
+                        className="mt-4 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-all"
+                    >
+                        Edit Status
+                    </button>
+
                     <p className="mt-2 text-xl font-semibold text-gray-800">Total Amount: ${order.totalAmount.toFixed(2)}</p>
 
                     {order.customerId ? (

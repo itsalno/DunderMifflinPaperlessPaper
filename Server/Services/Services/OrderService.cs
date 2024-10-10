@@ -1,6 +1,7 @@
 using DataAccess.Interfaces;
 using DataAccess.Models;
 using Services.TransferModels.Requests;
+using Services.TransferModels.Responses;
 
 namespace Services.Services;
 
@@ -46,5 +47,12 @@ public class OrderService(IOrderRepository orderRepository)
         
         orderRepository.UpdateOrder(order);
     }
+
+    public void UpdateOrder(OrderDto orderDto)
+    {
+        var order = orderDto.ToEntity();
+        orderRepository.UpdateOrder(order);
+    }
+    
 }
     

@@ -24,10 +24,9 @@ public class OrderRepository(DMDbContext context):IOrderRepository
         return order;
     }
     
-    public Order UpdateOrder(Order order)
+    public void UpdateOrder(Order order)
     {
         context.Orders.Update(order);
         context.SaveChanges(); 
-        return order;
     }
 }
