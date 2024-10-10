@@ -14,17 +14,17 @@ export function useInitializeData() {
 
 
     useEffect(() => {
-        http.api.papersGetAllPapersList().then((response) => {
+        http.api.getAllPapers().then((response) => {
             setPapers(response.data);
         }).catch(e => {
             console.log(e)
         })
-        http.api.ordersList().then((response) => {
+        http.api.getAllOrders().then((response) => {
             setOrders(response.data);
         }).catch(e => {
             console.log(e)
         })
-        http.api.customersList().then((response)=> {
+        http.api.getAllCustomers().then((response)=> {
             setCustomers(response.data);
             console.log(response)
         }).catch(e=>{

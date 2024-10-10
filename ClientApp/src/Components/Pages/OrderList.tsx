@@ -41,7 +41,7 @@ function OrderList() {
             );
             setOrders(updatedOrders);
             
-            await http.api.ordersUpdateUpdate(orderId, updatedOrder);
+            await http.api.ordersUpdate(orderId, updatedOrder);
             toast.success("Order status updated successfully!");
             setEditOrderId(null);
         } catch (error) {

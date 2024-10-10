@@ -44,12 +44,12 @@ function PaperList() {
     
     
     const reloadPapers=()=>{
-        http.api.papersGetAllPapersList().then((response) => setPapers(response.data))
+        http.api.getAllPapers().then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching papers:", error))
     }
 
     const handleSearch = () => {
-        http.api.papersSearchList({ name: searchQuery }) // Pass as an object with 'name' property
+        http.api.papersSearch({ name: searchQuery }) // Pass as an object with 'name' property
             .then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching searched papers:", error));
     };
@@ -71,7 +71,7 @@ function PaperList() {
     };
 
     async function CreatePaper(paper: CreatePaperDto) {
-        http.api.papersCreateCreate(paper)
+        http.api.papersCreate(paper)
             .then(() => {
                 setPapers([...papers, paper]);
                 toast.success("Paper created");
@@ -83,7 +83,7 @@ function PaperList() {
     }
 
     async function DeletePaper(id: number) {
-        http.api.papersDeleteDelete(id)
+        http.api.papersDelete(id)
             .then(() => {
                 toast.success("Paper deleted");
                 setPapers(papers.filter((p) => p.id !== id));
@@ -95,7 +95,7 @@ function PaperList() {
     }
 
     async function UpdatePaper(id: number, updatedPaper: PaperDto) {
-        http.api.papersUpdateUpdate(id, updatedPaper)
+        http.api.papersUpdate(id, updatedPaper)
             .then(() => {
                 setPapers(
                     papers.map((paper) =>

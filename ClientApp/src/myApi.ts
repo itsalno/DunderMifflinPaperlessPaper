@@ -348,10 +348,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Customers
-     * @name CustomersList
+     * @name getAllCustomers
      * @request GET:/api/Customers
      */
-    customersList: (params: RequestParams = {}) =>
+    getAllCustomers: (params: RequestParams = {}) =>
       this.request<CustomerDto[], any>({
         path: `/api/Customers`,
         method: "GET",
@@ -363,10 +363,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Orders
-     * @name OrdersList
+     * @name getAllOrders
      * @request GET:/api/Orders
      */
-    ordersList: (params: RequestParams = {}) =>
+    getAllOrders: (params: RequestParams = {}) =>
       this.request<Order[], any>({
         path: `/api/Orders`,
         method: "GET",
@@ -394,10 +394,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Orders
-     * @name OrdersUpdateUpdate
+     * @name OrdersUpdate
      * @request PUT:/api/Orders/Update/{id}
      */
-    ordersUpdateUpdate: (id: number, data: OrderDto, params: RequestParams = {}) =>
+    ordersUpdate: (id: number, data: OrderDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Orders/Update/${id}`,
         method: "PUT",
@@ -410,10 +410,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersGetAllPapersList
+     * @name getAllPapers
      * @request GET:/api/Papers/GetAllPapers
      */
-    papersGetAllPapersList: (params: RequestParams = {}) =>
+    getAllPapers: (params: RequestParams = {}) =>
       this.request<PaperDto[], any>({
         path: `/api/Papers/GetAllPapers`,
         method: "GET",
@@ -425,10 +425,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersGetPaperDetail
+     * @name getPaperDetail
      * @request GET:/api/Papers/GetPaper/{id}
      */
-    papersGetPaperDetail: (id: number, params: RequestParams = {}) =>
+   getPaperDetail: (id: number, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
         path: `/api/Papers/GetPaper/${id}`,
         method: "GET",
@@ -440,10 +440,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersCreateCreate
+     * @name PapersCreate
      * @request POST:/api/Papers/Create
      */
-    papersCreateCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
+    papersCreate: (data: CreatePaperDto, params: RequestParams = {}) =>
       this.request<PaperDto, any>({
         path: `/api/Papers/Create`,
         method: "POST",
@@ -457,10 +457,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersUpdateUpdate
+     * @name papersUpdate
      * @request PUT:/api/Papers/Update/{id}
      */
-    papersUpdateUpdate: (id: number, data: PaperDto, params: RequestParams = {}) =>
+    papersUpdate: (id: number, data: PaperDto, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Papers/Update/${id}`,
         method: "PUT",
@@ -473,10 +473,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersDeleteDelete
+     * @name papersDelete
      * @request DELETE:/api/Papers/Delete/{id}
      */
-    papersDeleteDelete: (id: number, params: RequestParams = {}) =>
+    papersDelete: (id: number, params: RequestParams = {}) =>
       this.request<void, any>({
         path: `/api/Papers/Delete/${id}`,
         method: "DELETE",
@@ -532,10 +532,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags Papers
-     * @name PapersSearchList
+     * @name PapersSearch
      * @request GET:/api/Papers/Search
      */
-    papersSearchList: (
+    papersSearch: (
       query?: {
         name?: string;
       },
