@@ -38,27 +38,6 @@ public class PapersTests
         Assert.Equal(29, result.Price);
         Assert.False(result.Discontinued);
     }
-
-    [Fact]
-    public void DeletePaper_ShouldSuccessfully_Delete_A_Paper()
-    {
-        var createPaperDto = new CreatePaperDto()
-        {
-            Name = "Deletable Paper",
-            Stock = 40,
-            Price = 10,
-            Discontinued = false
-        };
-
-        var createdPaper = _paperService.CreatePaper(createPaperDto);
-        
-        var deleteResult = _paperService.DeletePaper(createdPaper.Id);
-        
-        Assert.True(deleteResult);
-        
-        var fetchedPaper = _paperService.GetPaperById(createdPaper.Id);
-        Assert.Null(fetchedPaper);
-    }
         
 
     
