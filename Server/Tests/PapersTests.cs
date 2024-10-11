@@ -42,11 +42,40 @@ public class PapersTests
     [Fact]
     public void DeletePaper_ShouldSuccessfully_Delete_A_Paper()
     {
+        var createPaperDto = new CreatePaperDto()
+        {
+            Name = "Deletable Paper",
+            Stock = 40,
+            Price = 10,
+            Discontinued = false
+        };
+
+        var createdPaper = _paperService.CreatePaper(createPaperDto);
         
+        var deleteResult = _paperService.DeletePaper(createdPaper.Id);
+        
+        Assert.True(deleteResult);
+        
+        var fetchedPaper = _paperService.GetPaperById(createdPaper.Id);
+        Assert.Null(fetchedPaper);
     }
         
 
     
+    [Fact]
+    public void GetAllPapers_Should_Return_List_Of_Papers()
+    {
+        var createPaperDto1 = new CreatePaperDto() { Name = "Paper 1", Stock = 10, Price = 15, Discontinued = false };
+        var createPaperDto2 = new CreatePaperDto() { Name = "Paper 2", Stock = 20, Price = 25, Discontinued = false };
+
+        _paperService.CreatePaper(createPaperDto1);
+        _paperService.CreatePaper(createPaperDto2);
+        
+        var papers = _paperService.GetAllPapers();
+        
+        Assert.NotEmpty(papers);
+        Assert.Equal(2, papers.Count());
+    }
 
     
         
