@@ -38,6 +38,12 @@ public class PapersTests
         Assert.Equal(29, result.Price);
         Assert.False(result.Discontinued);
     }
+
+    [Fact]
+    public void DeletePaper_ShouldSuccessfully_Delete_A_Paper()
+    {
+        
+    }
         
 
     
