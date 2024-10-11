@@ -4,6 +4,8 @@ using DataAccess.Models;
 namespace Tests.Stubbing;
 
 public class StubPaperRepo:IPaperRepository
+    
+
 {
     public List<Paper> GetAllPapers()
     {

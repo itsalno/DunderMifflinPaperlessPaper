@@ -1,11 +1,13 @@
 using DataAccess.Interfaces;
 using DataAccess.Models;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
 using Services.TransferModels.Requests;
 using Services.TransferModels.Responses;
 
 namespace Services.Services;
 
-public class OrderService(IOrderRepository orderRepository)
+public class OrderService(IOrderRepository orderRepository,DMDbContext context,ILogger<OrderService> logger,IValidator<CreateOrderDto> createOrderValidator)
 {
     
     
@@ -22,6 +24,7 @@ public class OrderService(IOrderRepository orderRepository)
 
     public void CreateOrder(CreateOrderDto createOrderDto)
     {
+        createOrderValidator.ValidateAndThrow(createOrderDto);
         var order = new Order
         {
             OrderDate = createOrderDto.OrderDate,

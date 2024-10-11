@@ -5,7 +5,7 @@ namespace Services.Validators;
 
 public class ValidateCreateOrder :AbstractValidator<CreateOrderDto>
 {
-   /* public CreateOrderValidator()
+   public ValidateCreateOrder()
     {
         RuleFor(o => o.OrderDate).NotEmpty();
         RuleFor(o => o.DeliveryDate).NotEmpty();
@@ -13,5 +13,5 @@ public class ValidateCreateOrder :AbstractValidator<CreateOrderDto>
         RuleFor(o => o.TotalAmount).NotEmpty();
         
     }
-    */
+    
 }

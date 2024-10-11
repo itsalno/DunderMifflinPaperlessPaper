@@ -3,6 +3,8 @@ using DataAccess.Interfaces;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Services.Services;
+using Services.Validators;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<CustomerService>();
@@ -11,7 +13,7 @@ builder.Services.AddScoped<PaperService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ICustomerRepository,CustomerRepository>();
-
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ValidateCreatePaper>());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

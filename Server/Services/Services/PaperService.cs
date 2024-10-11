@@ -1,12 +1,13 @@
 using DataAccess.Interfaces;
 using DataAccess.Models;
+using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Services.TransferModels.Requests;
 using Services.TransferModels.Responses;
 
 namespace Services.Services;
 
-public class PaperService(IPaperRepository paperRepository,DMDbContext context,ILogger<PaperService> logger)
+public class PaperService(IPaperRepository paperRepository,DMDbContext context,ILogger<PaperService> logger,IValidator<CreatePaperDto> createPaperValidator)
 {
     
     
@@ -26,6 +27,7 @@ public class PaperService(IPaperRepository paperRepository,DMDbContext context,I
 
     public Paper CreatePaper(CreatePaperDto paperDto)
     {
+        createPaperValidator.ValidateAndThrow(paperDto);
         var paper = paperDto.ToEntity();
         paperRepository.CreatePaper(paper);
         return paper;
