@@ -37,7 +37,6 @@ function PaperList() {
     };
 
     const addToCart = (paper) => {
-        // Add paper and its quantity to the cart
         setCartItems((prevCart) => [...prevCart, { ...paper, quantity }]);
         toast.success(`${paper.name} added to cart!`);
     };
@@ -49,7 +48,7 @@ function PaperList() {
     }
 
     const handleSearch = () => {
-        http.api.papersSearch({ name: searchQuery }) // Pass as an object with 'name' property
+        http.api.papersSearch({ name: searchQuery }) 
             .then((response) => setPapers(response.data))
             .catch((error) => console.error("Error fetching searched papers:", error));
     };

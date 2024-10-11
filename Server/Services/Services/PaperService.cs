@@ -1,11 +1,12 @@
 using DataAccess.Interfaces;
 using DataAccess.Models;
+using Microsoft.Extensions.Logging;
 using Services.TransferModels.Requests;
 using Services.TransferModels.Responses;
 
 namespace Services.Services;
 
-public class PaperService(IPaperRepository paperRepository)
+public class PaperService(IPaperRepository paperRepository,DMDbContext context,ILogger<PaperService> logger)
 {
     
     

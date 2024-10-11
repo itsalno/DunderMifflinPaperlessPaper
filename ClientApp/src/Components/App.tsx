@@ -5,10 +5,12 @@ import {DevTools} from "jotai-devtools";
 import Navigation from "./Navigation.tsx";
 import {useAtom} from "jotai";
 import {ThemeAtom} from "../Atoms/ThemeAtom.tsx";
-import Home from "./WebPages/Home.tsx";
-import PaperList from "./WebPages/PaperList.tsx";
-import CartList from "./WebPages/CartList.tsx";
-import OrderList from "./WebPages/OrderList.tsx";
+import Home from "./Pages/Home.tsx";
+import PaperList from "./Pages/PaperList.tsx";
+import CartList from "./Pages/CartList.tsx";
+import OrderList from "./Pages/OrderList.tsx";
+
+
 
 
 const App = () => {

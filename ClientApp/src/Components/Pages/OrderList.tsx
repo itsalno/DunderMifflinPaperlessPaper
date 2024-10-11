@@ -105,8 +105,7 @@ function OrderList() {
                             </span>
                         </p>
                     )}
-
-                    {/* Edit status button */}
+                    
                     <button
                         onClick={() => setEditOrderId(order.id)}
                         className="mt-4 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-all"

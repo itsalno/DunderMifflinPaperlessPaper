@@ -1,16 +1,6 @@
-import React, {useEffect} from "react";
-import {useAtom} from "jotai";
-import {http} from '../http.ts';
+
 export default function Home() {
     
-
-    //const [, setProducts] = useAtom(PatientsAtom);
-
-    //useEffect(() => {
-
-   // },[])
-
-    //useInitializeData();
     
     return (
         <div className="flex items-center justify-center h-screen mt-20">
