@@ -241,7 +241,7 @@ function PaperList() {
                     </label>
                 </div>
                 <div className="flex space-x-4 mt-4">
-                    <button
+                    <button 
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all"
                     >

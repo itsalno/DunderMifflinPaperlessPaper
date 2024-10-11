@@ -6,8 +6,8 @@ namespace Services.Validators;
 public class ValidateCreatePaper : AbstractValidator<CreatePaperDto>
 
 {
-    /*
-    public CreatePaperValidator()
+    
+    public ValidateCreatePaper()
     {
         RuleFor(p => p.Name.Length).GreaterThan(3);
         RuleFor(p => p.Price).NotEmpty();
@@ -15,5 +15,5 @@ public class ValidateCreatePaper : AbstractValidator<CreatePaperDto>
         RuleFor(p => p.Name).NotEmpty();
         
     }
-    */
+    
 }
